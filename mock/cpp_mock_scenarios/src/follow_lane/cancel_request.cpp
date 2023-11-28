@@ -26,10 +26,12 @@
 #include <string>
 #include <vector>
 
-class CancelRequest : public cpp_mock_scenarios::CppScenarioNode
+namespace cpp_mock_scenarios
+{
+class CancelRequestScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
-  explicit CancelRequest(const rclcpp::NodeOptions & option)
+  explicit CancelRequestScenario(const rclcpp::NodeOptions & option)
   : cpp_mock_scenarios::CppScenarioNode(
       "cancel_request", ament_index_cpp::get_package_share_directory("kashiwanoha_map") + "/map",
       "lanelet2_map.osm", __FILE__, false, option)
@@ -42,7 +44,9 @@ private:
   void onUpdate() override
   {
     if (api_.reachPosition(
-          "ego", traffic_simulator::helper::constructLaneletPose(34513, 30, 0, 0, 0, 0), 3.0)) {
+          "ego",
+          api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34513, 30, 0, 0, 0, 0)),
+          3.0)) {
       api_.cancelRequest("ego");
       canceled = true;
     }
@@ -53,21 +57,23 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34513, 0, 0, 0, 0, 0),
+      "ego",
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34513, 0, 0, 0, 0, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("ego", 7);
     api_.requestSpeedChange("ego", 7, true);
-    const geometry_msgs::msg::Pose goal_pose =
-      api_.toMapPose(traffic_simulator::helper::constructLaneletPose(34408, 0, 0, 0, 0, 0));
+    const geometry_msgs::msg::Pose goal_pose = api_.toMapPose(
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34408, 0, 0, 0, 0, 0)));
     api_.requestAcquirePosition("ego", goal_pose);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<CancelRequest>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::CancelRequestScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

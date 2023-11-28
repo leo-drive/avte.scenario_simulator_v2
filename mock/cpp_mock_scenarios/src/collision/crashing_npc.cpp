@@ -26,10 +26,12 @@
 #include <string>
 #include <vector>
 
-class IdiotNpcScenario : public cpp_mock_scenarios::CppScenarioNode
+namespace cpp_mock_scenarios
+{
+class CrashingNpcScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
-  explicit IdiotNpcScenario(const rclcpp::NodeOptions & option)
+  explicit CrashingNpcScenario(const rclcpp::NodeOptions & option)
   : cpp_mock_scenarios::CppScenarioNode(
       "crashing_npc", ament_index_cpp::get_package_share_directory("kashiwanoha_map") + "/map",
       "private_road_and_walkway_ele_fix/lanelet2_map.osm", __FILE__, false, option)
@@ -54,7 +56,8 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34741, 0, 0), getVehicleParameters());
+      "ego", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 0, 0)),
+      getVehicleParameters());
     api_.setLinearVelocity("ego", 0.0);
     api_.requestSpeedChange("ego", 15, true);
     traffic_simulator_msgs::msg::BehaviorParameter behavior_parameter;
@@ -62,17 +65,19 @@ private:
     api_.setBehaviorParameter("ego", behavior_parameter);
 
     api_.spawn(
-      "npc", traffic_simulator::helper::constructLaneletPose(34741, 10, 0), getVehicleParameters());
+      "npc", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 10, 0)),
+      getVehicleParameters());
     api_.setLinearVelocity("npc", 0.0);
     api_.requestSpeedChange("npc", 5, true);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<IdiotNpcScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::CrashingNpcScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

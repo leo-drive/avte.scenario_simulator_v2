@@ -20,7 +20,7 @@
 #include <autoware_auto_vehicle_msgs/msg/gear_command.hpp>
 #include <autoware_auto_vehicle_msgs/msg/turn_indicators_command.hpp>
 #include <concealer/continuous_transform_broadcaster.hpp>
-#include <concealer/utility/visibility.hpp>
+#include <concealer/visibility.hpp>
 #include <geometry_msgs/msg/accel.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
@@ -63,6 +63,8 @@ public:
   virtual auto getVehicleCommand() const -> std::tuple<
     autoware_auto_control_msgs::msg::AckermannControlCommand,
     autoware_auto_vehicle_msgs::msg::GearCommand> = 0;
+
+  virtual auto getRouteLanelets() const -> std::vector<std::int64_t> = 0;
 
   auto set(const geometry_msgs::msg::Accel &) -> void;
 

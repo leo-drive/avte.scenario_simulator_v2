@@ -16,14 +16,15 @@
 #define CONCEALER__AUTOWARE_UNIVERSE_HPP_
 
 #include <autoware_auto_control_msgs/msg/ackermann_control_command.hpp>
+#include <autoware_auto_planning_msgs/msg/path_with_lane_id.hpp>
 #include <autoware_auto_vehicle_msgs/msg/control_mode_report.hpp>
 #include <autoware_auto_vehicle_msgs/msg/gear_report.hpp>
 #include <autoware_auto_vehicle_msgs/msg/steering_report.hpp>
 #include <autoware_auto_vehicle_msgs/msg/turn_indicators_report.hpp>
 #include <autoware_auto_vehicle_msgs/msg/velocity_report.hpp>
 #include <concealer/autoware.hpp>
-#include <concealer/utility/publisher_wrapper.hpp>
-#include <concealer/utility/subscriber_wrapper.hpp>
+#include <concealer/publisher_wrapper.hpp>
+#include <concealer/subscriber_wrapper.hpp>
 #include <geometry_msgs/msg/accel_with_covariance_stamped.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 
@@ -39,6 +40,7 @@ class AutowareUniverse : public Autoware
   SubscriberWrapper<autoware_auto_control_msgs::msg::AckermannControlCommand, ThreadSafety::safe> getAckermannControlCommand;
   SubscriberWrapper<autoware_auto_vehicle_msgs::msg::GearCommand,             ThreadSafety::safe> getGearCommandImpl;
   SubscriberWrapper<autoware_auto_vehicle_msgs::msg::TurnIndicatorsCommand,   ThreadSafety::safe> getTurnIndicatorsCommand;
+  SubscriberWrapper<autoware_auto_planning_msgs::msg::PathWithLaneId,         ThreadSafety::safe> getPathWithLaneId;
 
   PublisherWrapper<geometry_msgs::msg::AccelWithCovarianceStamped>        setAcceleration;
   PublisherWrapper<nav_msgs::msg::Odometry>                               setOdometry;
@@ -87,6 +89,8 @@ public:
   auto getVehicleCommand() const -> std::tuple<
     autoware_auto_control_msgs::msg::AckermannControlCommand,
     autoware_auto_vehicle_msgs::msg::GearCommand> override;
+
+  auto getRouteLanelets() const -> std::vector<std::int64_t>;
 };
 
 }  // namespace concealer

@@ -26,10 +26,12 @@
 #include <string>
 #include <vector>
 
-class LaneChangeLeftScenario : public cpp_mock_scenarios::CppScenarioNode
+namespace cpp_mock_scenarios
+{
+class LaneChangeTimeScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
-  explicit LaneChangeLeftScenario(const rclcpp::NodeOptions & option)
+  explicit LaneChangeTimeScenario(const rclcpp::NodeOptions & option)
   : cpp_mock_scenarios::CppScenarioNode(
       "lanechange_left", ament_index_cpp::get_package_share_directory("kashiwanoha_map") + "/map",
       "lanelet2_map.osm", __FILE__, false, option)
@@ -60,7 +62,8 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34462, 10, 0, 0, 0, 0),
+      "ego",
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34462, 10, 0, 0, 0, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("ego", 10);
     api_.requestSpeedChange("ego", 10, true);
@@ -73,12 +76,13 @@ private:
         traffic_simulator::lane_change::Constraint::Type::TIME, 20.0));
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<LaneChangeLeftScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::LaneChangeTimeScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

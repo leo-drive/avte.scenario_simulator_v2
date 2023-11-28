@@ -28,7 +28,7 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+  add_compile_options(-Wall -Wextra -Wpedantic -g -DBOOST_ALLOW_DEPRECATED_HEADERS)
 endif()
 
 # find dependencies
@@ -54,13 +54,6 @@ target_link_libraries(random_test_runner
   zmq
   fmt
 )
-
-# workaround to allow deprecated header to build on both galactic and humble
-if(${tf2_geometry_msgs_VERSION} VERSION_LESS 0.18.0)
-  target_compile_definitions(random_test_runner PUBLIC
-    USE_TF2_GEOMETRY_MSGS_DEPRECATED_HEADER
-  )
-endif()
 
 install(
   DIRECTORY launch rviz include param

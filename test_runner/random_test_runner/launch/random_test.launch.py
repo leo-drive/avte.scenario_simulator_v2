@@ -34,7 +34,7 @@ from launch_ros.actions import Node
 
 
 def architecture_types():
-    return ["awf/auto", "awf/universe", "tier4/proposal"]
+    return ["awf/auto", "awf/universe", "awf/universe/20230906", "tier4/proposal"]
 
 
 def default_autoware_launch_package_of(architecture_type):
@@ -46,6 +46,7 @@ def default_autoware_launch_package_of(architecture_type):
     return {
         "awf/auto": "scenario_simulator_launch",
         "awf/universe": "autoware_launch",
+        "awf/universe/20230906": "autoware_launch",
         "tier4/proposal": "autoware_launch",
     }[architecture_type]
 
@@ -59,6 +60,7 @@ def default_autoware_launch_file_of(architecture_type):
     return {
         "awf/auto": "autoware_auto.launch.py",
         "awf/universe": "planning_simulator.launch.xml",
+        "awf/universe/20230906": "planning_simulator.launch.xml",
         "tier4/proposal": "planning_simulator.launch.xml",
     }[architecture_type]
 
@@ -97,6 +99,8 @@ class RandomTestRunnerLaunch(object):
                 {"default": "/tmp",
                  "description": "Directory to which result.yaml and result.junit.xml files will be placed"},
 
+            "initialize_duration": {"default": 35, "description": "How long test runner will wait for Autoware to initialize"},
+
             # test suite arguments #
             "test_name": {"default": "random_test",
                           "description": "Test name. Used for descriptive purposes only"},
@@ -115,7 +119,7 @@ class RandomTestRunnerLaunch(object):
                                 "ego_goal_partial_randomization_distance value. If ego_goal_lanelet_id is set to -1, "
                                 "this value is ignored"},
             "ego_goal_partial_randomization_distance":
-                {"default": 20.0,
+                {"default": 25.0,
                  "description": "Distance from goal set by ego_goal_lanelet_id and ego_goal_s, within which goal "
                                 "pose will be randomized if ego_goal_partial_randomization is set to true"},
             "npc_count": {"default": 10, "description": "Generated npc count"},
@@ -187,7 +191,7 @@ class RandomTestRunnerLaunch(object):
             parameters.append(test_param_file_path)
 
         # not tested for other architectures but required for "awf/universe"
-        if autoware_architecture == "awf/universe":
+        if "awf/universe" in autoware_architecture:
             vehicle_model = self.autoware_launch_configuration["vehicle_model"].perform(context)
             if vehicle_model:
                 vehicle_model_description_dir = get_package_share_directory(vehicle_model + "_description")
@@ -239,7 +243,7 @@ class RandomTestRunnerLaunch(object):
                     namespace="simulation",
                     output="log",
                     arguments=[("__log_level:=warn")],
-                    parameters=[{"port": 8080}],
+                    parameters=[{"port": 5555}],
                 ),
             )
 

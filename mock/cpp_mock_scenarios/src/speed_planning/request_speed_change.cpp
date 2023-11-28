@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+namespace cpp_mock_scenarios
+{
 class RequestSpeedChangeScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
@@ -41,7 +43,7 @@ public:
 private:
   void onUpdate() override
   {
-    if (api_.getEntityStatus("front").action_status.twist.linear.x < 10.0) {
+    if (api_.getCurrentTwist("front").linear.x < 10.0) {
       stop(cpp_mock_scenarios::Result::FAILURE);
     }
     if (api_.getCurrentTime() <= 0.9 && api_.getCurrentTwist("ego").linear.x > 10.0) {
@@ -57,7 +59,8 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34741, 0, 0), getVehicleParameters());
+      "ego", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 0, 0)),
+      getVehicleParameters());
     api_.setLinearVelocity("ego", 0);
     api_.requestSpeedChange(
       "ego", 10.0, traffic_simulator::speed_change::Transition::LINEAR,
@@ -66,7 +69,7 @@ private:
       true);
 
     api_.spawn(
-      "front", traffic_simulator::helper::constructLaneletPose(34741, 10, 0),
+      "front", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 10, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("front", 0);
     api_.requestSpeedChange(
@@ -76,12 +79,13 @@ private:
       true);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<RequestSpeedChangeScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::RequestSpeedChangeScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

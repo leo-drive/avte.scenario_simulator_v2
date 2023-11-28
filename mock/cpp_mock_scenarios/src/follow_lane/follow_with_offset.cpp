@@ -26,10 +26,12 @@
 #include <string>
 #include <vector>
 
-class FollowLaneWithOffset : public cpp_mock_scenarios::CppScenarioNode
+namespace cpp_mock_scenarios
+{
+class FollowLaneWithOffsetScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
-  explicit FollowLaneWithOffset(const rclcpp::NodeOptions & option)
+  explicit FollowLaneWithOffsetScenario(const rclcpp::NodeOptions & option)
   : cpp_mock_scenarios::CppScenarioNode(
       "follow_lane_with_offset",
       ament_index_cpp::get_package_share_directory("kashiwanoha_map") + "/map", "lanelet2_map.osm",
@@ -46,25 +48,29 @@ private:
       stop(cpp_mock_scenarios::Result::SUCCESS);
     }
     const auto lanelet_pose = api_.getLaneletPose("ego");
-    if (!lanelet_pose || std::abs(lanelet_pose.value().offset) <= 2.8) {
+    if (
+      !lanelet_pose ||
+      std::abs(static_cast<traffic_simulator::LaneletPose>(lanelet_pose.value()).offset) <= 2.8) {
       stop(cpp_mock_scenarios::Result::FAILURE);
     }
   }
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34513, 0, 3, 0, 0, 0),
+      "ego",
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34513, 0, 3, 0, 0, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("ego", 10);
     api_.requestSpeedChange("ego", 10, true);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<FollowLaneWithOffset>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::FollowLaneWithOffsetScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

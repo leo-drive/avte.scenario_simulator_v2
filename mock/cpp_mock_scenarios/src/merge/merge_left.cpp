@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+namespace cpp_mock_scenarios
+{
 class MergeLeftScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
@@ -56,24 +58,27 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34462, 15, 0, 0, 0, 0),
+      "ego",
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34462, 15, 0, 0, 0, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("ego", 5);
     api_.requestSpeedChange("ego", 5, true);
     api_.requestLaneChange("ego", 34513);
 
     api_.spawn(
-      "npc", traffic_simulator::helper::constructLaneletPose(34513, 0, 0, 0, 0, 0),
+      "npc",
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34513, 0, 0, 0, 0, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("npc", 10);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<MergeLeftScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::MergeLeftScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;
