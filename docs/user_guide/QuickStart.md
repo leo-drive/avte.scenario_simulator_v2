@@ -4,8 +4,8 @@ This document contains step-by-step instruction on how to build and run [AWF Aut
 
 ## Prerequisites 
 
-1. Ubuntu 20.04 machine
-3. ROS 2 Galactic Geochelone desktop version [installed](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html)
+1. Ubuntu 22.04 machine
+3. ROS 2 Humble Hawksbill desktop version [installed](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 
 ## How to build
 
@@ -41,7 +41,7 @@ This document contains step-by-step instruction on how to build and run [AWF Aut
 
 5. Install dependent ROS packages.
    ```bash
-   source /opt/ros/galactic/setup.bash
+   source /opt/ros/humble/setup.bash
    rosdep install -iry --from-paths src --rosdistro $ROS_DISTRO
    ```
 6. Build the workspace.
@@ -80,7 +80,7 @@ This document contains step-by-step instruction on how to build and run [AWF Aut
    vehicle_model:=sample_vehicle
    ``` 
    
-   To modify parameters of random testing, please check documentation of ![random_test_runner](random_test_runner/README.md)
+   To modify parameters of random testing, please check documentation of [random_test_runner](random_test_runner/README.md)
 
 #### cpp scenario demo
    This demo does not use Autoware. the ego vehicle is interpreted as an NPC.

@@ -33,13 +33,6 @@ target_link_libraries(cpp_scenario_node
   zmq
 )
 
-# workaround to allow deprecated header to build on both galactic and humble
-if(${tf2_geometry_msgs_VERSION} VERSION_LESS 0.18.0)
-  target_compile_definitions(cpp_scenario_node PUBLIC
-    USE_TF2_GEOMETRY_MSGS_DEPRECATED_HEADER
-  )
-endif()
-
 ament_auto_add_executable(traffic_simulation_demo
   src/traffic_simulation_demo.cpp
 )
@@ -47,6 +40,7 @@ target_link_libraries(traffic_simulation_demo cpp_scenario_node)
 
 option(BUILD_CPP_MOCK_SCENARIOS "Building the C++ scenarios" OFF)
 if(BUILD_CPP_MOCK_SCENARIOS)
+  add_subdirectory(src/behavior_plugin)
   add_subdirectory(src/collision)
   add_subdirectory(src/crosswalk)
   add_subdirectory(src/follow_front_entity)

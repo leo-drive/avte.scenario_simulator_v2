@@ -4,10 +4,59 @@
 
 Major Changes :race_car: :red_car: :blue_car:
 
-| Feature                                                  | Brief summary                                                                                                          | Category                                        | Pull request                                                      | Contributor                                   |
-|----------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------|-----------------------------------------------|
-| OpenSCENARIO 1.2 `UserDefinedAction.CustomCommandAction` | Added `FaultInjectionAction@v2`, a CustomCommandAction for raising a fault injection event with specified error level. | `openscenario_interpreter`                      | [#1002](https://github.com/tier4/scenario_simulator_v2/pull/1002) | [yamacir-kit](https://github.com/yamacir-kit) |
-| OpenSCENARIO 1.2 `UserDefinedAction.CustomCommandAction` | Added `V2ITrafficSignalStateAction`, an implementation of `TrafficSignalState` for V2I traffic signals.                | `openscenario_interpreter`, `traffic_simulator` | [#1004](https://github.com/tier4/scenario_simulator_v2/pull/1004) | [HansRobo](https://github.com/HansRobo)       |
+| Feature                                                  | Brief summary                                                                                                                                                                                               | Category                                                                   | Pull request                                                      | Contributor                                   |
+|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|-------------------------------------------------------------------|-----------------------------------------------|
+| Traffic Light Simulation                                 | Start supporting to traffic light messages in `autoware_perception_msgs`.                                                                                                                                   | `openscenario_interpreter`, `traffic_simulator`, `simple_sensor_simulator` | [#1027](https://github.com/tier4/scenario_simulator_v2/pull/1027) | [HansRobo](https://github.com/HansRobo)       |
+| Detailed control of permissions for autonomous decisions | Add `featureIdentifiersRequiringExternalPermissionForAutonomousDecisions` property for ObjectController. scenario_simulator_v2 controls auto_mode of Autoware planning modules by settings in the property. | `openscenario_interpreter`, `concealer`                                    | [#1092](https://github.com/tier4/scenario_simulator_v2/pull/1092) | [HansRobo](https://github.com/HansRobo)       |
+| OpenSCENARIO `Controller.Properties.Property`            | Support the property `allowGoalModification` to turn on the Autoware feature `allow_goal_modification`.                                                                                                     | `openscenario_interpreter`, `concealer`                                    | [#997](https://github.com/tier4/scenario_simulator_v2/pull/997)   | [yamacir-kit](https://github.com/yamacir-kit) |
+
+Bug Fixes:bug:
+
+| Feature | Brief summary | Category | Pull request | Contributor |
+|---------|---------------|----------|--------------|-------------|
+|         |               |          |              |             |
+
+Minor Tweaks :oncoming_police_car:
+
+| Feature | Brief summary | Category | Pull request | Contributor |
+|---------|---------------|----------|--------------|-------------|
+|         |               |          |              |             |
+
+## Version 0.8.0
+
+Major Changes :race_car: :red_car: :blue_car:
+
+| Feature                                            | Brief summary                                                                                                                                                          | Category                                              | Pull request                                                      | Contributor                             |
+|----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|-------------------------------------------------------------------|-----------------------------------------|
+| Ground truth topic for perception detected objects | Add ground truth topic for detected objects in `simple_sensor_simulator`. The delay of the topic can be set by `detectedObjectGroundTruthPublishingDelay` in scenario. | `simple_sensor_simulator`, `openscenario_interpreter` | [#1024](https://github.com/tier4/scenario_simulator_v2/pull/1024) | [HansRobo](https://github.com/HansRobo) |
+
+Bug Fixes:bug:
+
+| Feature                                                  | Brief summary                                                                               | Category    | Pull request                                                      | Contributor                             |
+|----------------------------------------------------------|---------------------------------------------------------------------------------------------|-------------|-------------------------------------------------------------------|-----------------------------------------|
+| OpenSCENARIO 1.2 `UserDefinedAction.CustomCommandAction` | Add history filter to avoid send same RTC commands in `RequestToCooperateCommandAction@v1`. | `concealer` | [#1106](https://github.com/tier4/scenario_simulator_v2/pull/1106) | [HansRobo](https://github.com/HansRobo) |
+
+Minor Tweaks :oncoming_police_car:
+
+| Feature | Brief summary | Category | Pull request | Contributor |
+|---------|---------------|----------|--------------|-------------|
+|         |               |          |              |             |
+
+## Version 0.7.0
+
+!!! Note
+    In version 0.8.x, we will drop ROS 2 [Galactic Geochelone](https://docs.ros.org/en/rolling/Releases/Release-Galactic-Geochelone.html) support.
+    We recommend to use version 0.7.0 for [Galactic Geochelone](https://docs.ros.org/en/rolling/Releases/Release-Galactic-Geochelone.html) user.
+
+Major Changes :race_car: :red_car: :blue_car:
+
+| Feature                                                  | Brief summary                                                                                                                                             | Category                                        | Pull request                                                      | Contributor                                   |
+|----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------|-----------------------------------------------|
+| OpenSCENARIO 1.2 `UserDefinedAction.CustomCommandAction` | Added `FaultInjectionAction@v2`, a CustomCommandAction for raising a fault injection event with specified error level.                                    | `openscenario_interpreter`                      | [#1002](https://github.com/tier4/scenario_simulator_v2/pull/1002) | [yamacir-kit](https://github.com/yamacir-kit) |
+| OpenSCENARIO 1.2 `UserDefinedAction.CustomCommandAction` | Added `V2ITrafficSignalStateAction`, an implementation of `TrafficSignalState` for V2I traffic signals.                                                   | `openscenario_interpreter`, `traffic_simulator` | [#1004](https://github.com/tier4/scenario_simulator_v2/pull/1004) | [HansRobo](https://github.com/HansRobo)       |
+| Add do noting behavior plugin                            | Add do nothing behavior for driving the simulator from Autoware rosbag data.                                                                              | `do_nothing_plugin`,`traffic_simulator`         | [#1001](https://github.com/tier4/scenario_simulator_v2/pull/1011) | [hakuturu583](https://github.com/hakuturu583) |
+| OpenSCENARIO 1.2 `UserDefinedAction.CustomCommandAction` | Added `RequestToCooperateCommandAction@v1`, a CustomCommandAction to simulate an operation by humans or external applications for a request to cooperate. | `openscenario_interpreter`, `concealer`         | [#1013](https://github.com/tier4/scenario_simulator_v2/pull/1013) | [HansRobo](https://github.com/HansRobo)       |
+|  OpenSCENARIO 1.2 `FollowTrajectoryAction`               | Support `FollowTrajectoryAction` only for vehicle entities directly controlled by the simulator.                                                          | `openscenario_interpreter`, `traffic_simulator` | [#906](https://github.com/tier4/scenario_simulator_v2/pull/906)   | [yamacir-kit](https://github.com/yamacir-kit) |
 
 Bug Fixes:bug:
 
@@ -56,6 +105,7 @@ Minor Tweaks :oncoming_police_car:
 | OpenSCENARIO `UserDefinedValueCondition` | Support ADAPI interface for minimum-risk-maneuver state with backward compatibility for legacy emergency state              | `openscenario_interpreter`, `concealer` | [#975](https://github.com/tier4/scenario_simulator_v2/pull/975) | [HansRobo](https://github.com/HansRobo)       |
 | Port management                          | Change communication between `traffic_simulator` and `simple_sensor_simulator` from multi-port to single-port.              | `simulation_interface`                  | [#981](https://github.com/tier4/scenario_simulator_v2/pull/981) | [dmoszynski](https://github.com/dmoszynski)   |
 | OpenSCENARIO `model3d` in entity object  | Add `model3d` attribute parsing in entity objects.                                                                          | `openscenario_interpreter`              | [#977](https://github.com/tier4/scenario_simulator_v2/pull/977) | [f0reachARR](https://github.com/f0reachARR)   |
+
 ## Version 0.6.7
 
 Major Changes :race_car: :red_car: :blue_car:
@@ -96,8 +146,7 @@ Major Changes :race_car: :red_car: :blue_car:
 | Experimental UserDefinedValueCondition `RelativeHeadingCondition` | Update `UserDefinedValueCondition` to support new experimental condition `RelativeHeadingCondition`.        | `openscenario_interpreter` | [#830](https://github.com/tier4/scenario_simulator_v2/pull/830) | [yamacir-kit](https://github.com/yamacir-kit)                                      |
 | OpenSCENARIO `ValueConstraint`, `ValueConstraintGroup`            | Add support for `ValueConstraint` and `ValueConstraintGroup`.                                               | `openscenario_interpreter` | [#847](https://github.com/tier4/scenario_simulator_v2/pull/847) | [HansRobo](https://github.com/HansRobo)                                            |
 | Add `API::getTraveledDistance()`                                  | Add `API::getTraveledDistance()` to obtain how far an entity traveled, and remove `TraveledDistanceMetric`. | `traffic_simulator`        | [#858](https://github.com/tier4/scenario_simulator_v2/pull/858) | [hakuturu583](https://github.com/hakuturu583), [shouth](https://github.com/shouth) |
-
-| Improve ego lane matching logic                                   | Retry matching to lanelet without using route information from Autoware.                             | `traffic_simulator`        | [#864](https://github.com/tier4/scenario_simulator_v2/pull/864) | [hakuturu583](https://github.com/hakuturu583) |
+| Improve ego lane matching logic                                   | Retry matching to lanelet without using route information from Autoware.                                    | `traffic_simulator`        | [#864](https://github.com/tier4/scenario_simulator_v2/pull/864) | [hakuturu583](https://github.com/hakuturu583)                                      |
 
 Bug Fixes:bug:
 

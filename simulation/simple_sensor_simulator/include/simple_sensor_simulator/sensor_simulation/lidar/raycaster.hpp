@@ -15,7 +15,7 @@
 #ifndef SIMPLE_SENSOR_SIMULATOR__SENSOR_SIMULATION__LIDAR__RAYCASTER_HPP_
 #define SIMPLE_SENSOR_SIMULATOR__SENSOR_SIMULATION__LIDAR__RAYCASTER_HPP_
 
-#include <embree3/rtcore.h>
+#include <embree4/rtcore.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <quaternion_operation/quaternion_operation.h>
 
@@ -49,8 +49,8 @@ public:
     primitive_ptrs_.emplace(name, std::move(primitive_ptr));
   }
   const sensor_msgs::msg::PointCloud2 raycast(
-    std::string frame_id, const rclcpp::Time & stamp, geometry_msgs::msg::Pose origin,
-    double max_distance = 100, double min_distance = 0);
+    const std::string & frame_id, const rclcpp::Time & stamp,
+    const geometry_msgs::msg::Pose & origin, double max_distance = 300, double min_distance = 0);
   const std::vector<std::string> & getDetectedObject() const;
   void setDirection(
     const simulation_api_schema::LidarConfiguration & configuration,
@@ -76,8 +76,7 @@ private:
 
   static void intersect(
     int thread_id, int thread_count, RTCScene scene,
-    pcl::PointCloud<pcl::PointXYZI>::Ptr thread_cloud, RTCIntersectContext context,
-    geometry_msgs::msg::Pose origin,
+    pcl::PointCloud<pcl::PointXYZI>::Ptr thread_cloud, geometry_msgs::msg::Pose origin,
     std::reference_wrapper<std::set<unsigned int>> ref_thread_detected_ids, double max_distance,
     double min_distance,
     std::reference_wrapper<const std::vector<Eigen::Matrix3d>> ref_rotation_matrices)
@@ -101,7 +100,7 @@ private:
       rayhit.ray.dir_y = rotation_mat(1);
       rayhit.ray.dir_z = rotation_mat(2);
       rayhit.hit.geomID = RTC_INVALID_GEOMETRY_ID;
-      rtcIntersect1(scene, &context, &rayhit);
+      rtcIntersect1(scene, &rayhit);
 
       if (rayhit.hit.geomID != RTC_INVALID_GEOMETRY_ID) {
         double distance = rayhit.ray.tfar;

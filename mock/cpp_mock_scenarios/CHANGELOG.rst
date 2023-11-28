@@ -2,6 +2,87 @@
 Changelog for package cpp_mock_scenarios
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.8.0 (2023-09-05)
+------------------
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge pull request `#1074 <https://github.com/tier4/scenario_simulator_v2/issues/1074>`_ from tier4/fix/clock
+* Fix some unit tests
+* Lipsticks
+* Remove member function `SimulationClock::initialize`
+* Merge remote-tracking branch 'origin/master' into feature/perception_ground_truth
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action-2
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge pull request `#1018 <https://github.com/tier4/scenario_simulator_v2/issues/1018>`_ from tier4/fix/longitudinal_distance_fixed_master_merged
+* Merge remote-tracking branch 'origin/master' into fix/RJD-554_error_run_scenario_in_row
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Canonicalize lanelet pose in cpp_mock_scenarios
+* Merge branch 'master_fe8503' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_6789' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_4284' into fix/longitudinal_distance_fixed_master_merged
+* cleanup code
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* apply reformat
+* rename data type
+* apply format in mock
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* rename data type
+* apply format
+* add namespace
+* fix follow lane action
+* fix compile errors in mock scenarios
+* remove glog
+* add glog to the mock scenario
+* Merge remote-tracking branch 'origin' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* fix compile error
+* fix get longitudinal distance logic
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Contributors: Dawid Moszyński, Kotaro Yoshimoto, Lukasz Chojnacki, Masaya Kataoka, kyoichi-sugahara, yamacir-kit
+
+0.7.0 (2023-07-26)
+------------------
+* moved vehicle simulation to simple sensor simulator
+* traffic light test (to be reverted)
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/zmq-interface-change-impl
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'tier4/master' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge branch 'master' into feature/rtc_custom_command_action
+* Merge pull request `#1011 <https://github.com/tier4/scenario_simulator_v2/issues/1011>`_ from tier4/feature/do_nothing_plugin
+* fix comment
+* fix cmake lint error
+* remove unused white line
+* add description for test case
+* add test case for loading do_nothing plugin
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/zmq-interface-change
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into fix/get_s_value
+* Merge remote-tracking branch 'tier4/master' into pzyskowski/660/ego-entity-split
+* Merge pull request `#1004 <https://github.com/tier4/scenario_simulator_v2/issues/1004>`_ from tier4/feat/v2i_custom_command_action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge branch 'pzyskowski/660/ego-entity-split' into pzyskowski/660/zmq-interface-change
+* Merge remote-tracking branch 'origin/master' into feat/v2i_custom_command_action
+* refactor(traffic_simulator): forward getTrafficLights function to each type of traffic lights
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'origin/master' into feature/interpreter/fault-injection
+* Merge remote-tracking branch 'origin/master' into fix/get_s_value
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge branch 'pzyskowski/660/concealer-split' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Contributors: Dawid Moszyński, Kotaro Yoshimoto, Masaya Kataoka, Piotr Zyskowski, yamacir-kit
+
 0.6.8 (2023-05-09)
 ------------------
 * Merge pull request `#979 <https://github.com/tier4/scenario_simulator_v2/issues/979>`_ from RobotecAI/ref/AJD-696_clean_up_metics_traffic_sim
