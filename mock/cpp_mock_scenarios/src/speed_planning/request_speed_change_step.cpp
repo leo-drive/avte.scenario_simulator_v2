@@ -26,10 +26,12 @@
 #include <string>
 #include <vector>
 
-class RequestSpeedChangeScenario : public cpp_mock_scenarios::CppScenarioNode
+namespace cpp_mock_scenarios
+{
+class RequestSpeedChangeStepScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
-  explicit RequestSpeedChangeScenario(const rclcpp::NodeOptions & option)
+  explicit RequestSpeedChangeStepScenario(const rclcpp::NodeOptions & option)
   : cpp_mock_scenarios::CppScenarioNode(
       "request_speed_change_step",
       ament_index_cpp::get_package_share_directory("kashiwanoha_map") + "/map",
@@ -54,7 +56,8 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34741, 0, 0), getVehicleParameters());
+      "ego", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 0, 0)),
+      getVehicleParameters());
     api_.setLinearVelocity("ego", 0);
     api_.requestSpeedChange(
       "ego", 10.0, traffic_simulator::speed_change::Transition::STEP,
@@ -63,7 +66,7 @@ private:
       true);
 
     api_.spawn(
-      "front", traffic_simulator::helper::constructLaneletPose(34741, 10, 0),
+      "front", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 10, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("front", 0);
     api_.requestSpeedChange(
@@ -73,12 +76,13 @@ private:
       true);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<RequestSpeedChangeScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::RequestSpeedChangeStepScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

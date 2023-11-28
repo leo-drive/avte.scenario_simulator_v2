@@ -17,16 +17,16 @@
 
 #include <iostream>
 #include <scenario_simulator_exception/exception.hpp>
-#include <traffic_simulator_msgs/msg/entity_status.hpp>
+#include <traffic_simulator/data_type/entity_status.hpp>
 
 namespace traffic_simulator
 {
 namespace speed_change
 {
 enum class Transition {
-  // @todo CUBIC,
+  // @todo Add CUBIC transition.
   LINEAR,
-  // @todo SINUSOIDAL,
+  // @todo Add SINUSOIDAL transition.
   STEP,
   AUTO
 };
@@ -34,7 +34,7 @@ enum class Transition {
 struct Constraint
 {
   enum class Type {
-    // @todo DISTANCE,
+    // @todo Add DISTANCE constraint type.
     LONGITUDINAL_ACCELERATION,
     TIME,
     NONE
@@ -60,9 +60,8 @@ struct RelativeTargetSpeed
   {
   }
   double getAbsoluteValue(
-    const traffic_simulator_msgs::msg::EntityStatus & status,
-    const std::unordered_map<std::string, traffic_simulator_msgs::msg::EntityStatus> & other_status)
-    const;
+    const CanonicalizedEntityStatus & status,
+    const std::unordered_map<std::string, CanonicalizedEntityStatus> & other_status) const;
   std::string reference_entity_name;
   Type type;
   double value;

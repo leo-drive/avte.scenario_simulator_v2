@@ -118,8 +118,43 @@ auto DistanceCondition::distance<
           triggering_entity, static_cast<NativeWorldPosition>(position));
         return std::hypot(relative_world.position.x, relative_world.position.y);
       },
+      [&](const RelativeObjectPosition & position) {
+        const auto relative_world = makeNativeRelativeWorldPosition(
+          triggering_entity, static_cast<NativeWorldPosition>(position));
+        return std::hypot(relative_world.position.x, relative_world.position.y);
+      },
       [&](const LanePosition & position) {
         const auto relative_world = makeNativeRelativeWorldPosition(
+          triggering_entity, static_cast<NativeWorldPosition>(position));
+        return std::hypot(relative_world.position.x, relative_world.position.y);
+      }),
+    position);
+}
+
+template <>
+auto DistanceCondition::distance<
+  CoordinateSystem::entity, RelativeDistanceType::euclidianDistance, true>(
+  const EntityRef & triggering_entity) const -> double
+{
+  return apply<double>(
+    overload(
+      [&](const WorldPosition & position) {
+        const auto relative_world = makeNativeBoundingBoxRelativeWorldPosition(
+          triggering_entity, static_cast<NativeWorldPosition>(position));
+        return std::hypot(relative_world.position.x, relative_world.position.y);
+      },
+      [&](const RelativeWorldPosition & position) {
+        const auto relative_world = makeNativeBoundingBoxRelativeWorldPosition(
+          triggering_entity, static_cast<NativeWorldPosition>(position));
+        return std::hypot(relative_world.position.x, relative_world.position.y);
+      },
+      [&](const RelativeObjectPosition & position) {
+        const auto relative_world = makeNativeBoundingBoxRelativeWorldPosition(
+          triggering_entity, static_cast<NativeWorldPosition>(position));
+        return std::hypot(relative_world.position.x, relative_world.position.y);
+      },
+      [&](const LanePosition & position) {
+        const auto relative_world = makeNativeBoundingBoxRelativeWorldPosition(
           triggering_entity, static_cast<NativeWorldPosition>(position));
         return std::hypot(relative_world.position.x, relative_world.position.y);
       }),
@@ -143,8 +178,43 @@ auto DistanceCondition::distance<  //
                  triggering_entity, static_cast<NativeWorldPosition>(position))
           .position.y;
       },
+      [&](const RelativeObjectPosition & position) {
+        return makeNativeRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.y;
+      },
       [&](const LanePosition & position) {
         return makeNativeRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.y;
+      }),
+    position);
+}
+
+template <>
+auto DistanceCondition::distance<  //
+  CoordinateSystem::entity, RelativeDistanceType::lateral, true>(
+  const EntityRef & triggering_entity) const -> double
+{
+  return apply<double>(
+    overload(
+      [&](const WorldPosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.y;
+      },
+      [&](const RelativeWorldPosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.y;
+      },
+      [&](const RelativeObjectPosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.y;
+      },
+      [&](const LanePosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
                  triggering_entity, static_cast<NativeWorldPosition>(position))
           .position.y;
       }),
@@ -168,8 +238,43 @@ auto DistanceCondition::distance<
                  triggering_entity, static_cast<NativeWorldPosition>(position))
           .position.x;
       },
+      [&](const RelativeObjectPosition & position) {
+        return makeNativeRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.x;
+      },
       [&](const LanePosition & position) {
         return makeNativeRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.x;
+      }),
+    position);
+}
+
+template <>
+auto DistanceCondition::distance<
+  CoordinateSystem::entity, RelativeDistanceType::longitudinal, true>(
+  const EntityRef & triggering_entity) const -> double
+{
+  return apply<double>(
+    overload(
+      [&](const WorldPosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.x;
+      },
+      [&](const RelativeWorldPosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.x;
+      },
+      [&](const RelativeObjectPosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
+                 triggering_entity, static_cast<NativeWorldPosition>(position))
+          .position.x;
+      },
+      [&](const LanePosition & position) {
+        return makeNativeBoundingBoxRelativeWorldPosition(
                  triggering_entity, static_cast<NativeWorldPosition>(position))
           .position.x;
       }),
@@ -185,14 +290,25 @@ auto DistanceCondition::distance<  //
     overload(
       [&](const WorldPosition & position) {
         if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
-          return makeNativeRelativeLanePosition(
-                   triggering_entity, static_cast<NativeLanePosition>(position))
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
             .offset;
         } else {
           return std::numeric_limits<double>::quiet_NaN();
         }
       },
       [&](const RelativeWorldPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .offset;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const RelativeObjectPosition & position) {
         if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
           return makeNativeRelativeLanePosition(
                    triggering_entity, static_cast<NativeLanePosition>(position))
@@ -203,8 +319,57 @@ auto DistanceCondition::distance<  //
       },
       [&](const LanePosition & position) {
         if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
-          return makeNativeRelativeLanePosition(
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .offset;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      }),
+    position);
+}
+
+template <>
+auto DistanceCondition::distance<CoordinateSystem::lane, RelativeDistanceType::lateral, true>(
+  const EntityRef & triggering_entity) const -> double
+{
+  return apply<double>(
+    overload(
+      [&](const WorldPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeBoundingBoxRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .offset;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const RelativeWorldPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeBoundingBoxRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .offset;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const RelativeObjectPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return makeNativeBoundingBoxRelativeLanePosition(
                    triggering_entity, static_cast<NativeLanePosition>(position))
+            .offset;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const LanePosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeBoundingBoxRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
             .offset;
         } else {
           return std::numeric_limits<double>::quiet_NaN();
@@ -222,14 +387,25 @@ auto DistanceCondition::distance<  //
     overload(
       [&](const WorldPosition & position) {
         if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
-          return makeNativeRelativeLanePosition(
-                   triggering_entity, static_cast<NativeLanePosition>(position))
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
             .s;
         } else {
           return std::numeric_limits<double>::quiet_NaN();
         }
       },
       [&](const RelativeWorldPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .s;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const RelativeObjectPosition & position) {
         if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
           return makeNativeRelativeLanePosition(
                    triggering_entity, static_cast<NativeLanePosition>(position))
@@ -240,8 +416,58 @@ auto DistanceCondition::distance<  //
       },
       [&](const LanePosition & position) {
         if (global().entities->ref(triggering_entity).template as<ScenarioObject>().is_added) {
-          return makeNativeRelativeLanePosition(
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .s;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      }),
+    position);
+}
+
+template <>
+auto DistanceCondition::distance<  //
+  CoordinateSystem::lane, RelativeDistanceType::longitudinal, true>(
+  const EntityRef & triggering_entity) const -> double
+{
+  return apply<double>(
+    overload(
+      [&](const WorldPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeBoundingBoxRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .s;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const RelativeWorldPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeBoundingBoxRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
+            .s;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const RelativeObjectPosition & position) {
+        if (global().entities->ref(triggering_entity).as<ScenarioObject>().is_added) {
+          return makeNativeBoundingBoxRelativeLanePosition(
                    triggering_entity, static_cast<NativeLanePosition>(position))
+            .s;
+        } else {
+          return std::numeric_limits<double>::quiet_NaN();
+        }
+      },
+      [&](const LanePosition & position) {
+        if (global().entities->ref(triggering_entity).template as<ScenarioObject>().is_added) {
+          return static_cast<traffic_simulator::LaneletPose>(
+                   makeNativeBoundingBoxRelativeLanePosition(
+                     triggering_entity, static_cast<NativeLanePosition>(position)))
             .s;
         } else {
           return std::numeric_limits<double>::quiet_NaN();
@@ -256,7 +482,7 @@ auto DistanceCondition::evaluate() -> Object
 
   return asBoolean(triggering_entities.apply([&](auto && triggering_entity) {
     results.push_back(distance(triggering_entity));
-    return rule(results.back(), value);
+    return rule(static_cast<double>(results.back()), value);
   }));
 }
 }  // namespace syntax

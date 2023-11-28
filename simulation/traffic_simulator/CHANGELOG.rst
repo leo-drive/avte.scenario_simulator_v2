@@ -2,6 +2,544 @@
 Changelog for package traffic_simulator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.8.0 (2023-09-05)
+------------------
+* Merge pull request `#1058 <https://github.com/tier4/scenario_simulator_v2/issues/1058>`_ from tier4/ref/RJD-553_restore_repeated_update_entity_status
+* ref(entity_manager): remove test exceptions
+* ref(entity_manager): revert comments format
+* fix(follow_trajectory): fix division by zero
+* fix(entity_manager): fix current_time update
+* ref(traffic_simulator): increase readability setting time in api
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge pull request `#1074 <https://github.com/tier4/scenario_simulator_v2/issues/1074>`_ from tier4/fix/clock
+* Merge remote-tracking branch 'origin/master' into fix/clock
+* Merge pull request `#1024 <https://github.com/tier4/scenario_simulator_v2/issues/1024>`_ from tier4/feature/perception_ground_truth
+* fix(traffic_sim): fix nonEgo update - ll2 issue
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* feat(traffic_sim): provide response processing for update of each entity type
+* refactor: change property name from isEnableDetectedObjectGroundTruthDelay to detectedObjectGroundTruthPublishingDelay
+* Merge remote-tracking branch 'origin/master' into feature/perception_ground_truth
+* Merge remote-tracking branch 'origin/master' into fix/clock
+* Merge pull request `#1056 <https://github.com/tier4/scenario_simulator_v2/issues/1056>`_ from tier4/feature/interpreter/sensor-detection-range
+* Merge remote-tracking branch 'origin/master' into feature/perception_ground_truth
+* Merge pull request `#1067 <https://github.com/tier4/scenario_simulator_v2/issues/1067>`_ from tier4/fix/rviz_config
+* Rename API `UpdateFrameRequest::current_time` to `current_simulation_time`
+* Rename member function `SimulationClock::onNpcLogicStart` to `start`
+* Update `SimulationClock` to hold total frames instead of elapsed seconds
+* Remove data member `SimulationClock::is_npc_logic_started\_`
+* Fix a501d8b
+* Lipsticks
+* Remove member function `API::initialize`
+* Remove data member `step_time\_` and `step_time_duration\_`
+* Remove data member `SimulationClock::initialized\_`
+* Remove data member `SimulationClock::initial_simulation_time\_`
+* Remove member function `SimulationClock::initialize`
+* Remove all arguments from class `SimulationClock` constructor
+* Remove default argument from class `API` constructor
+* Merge remote-tracking branch 'origin/master' into feature/perception_ground_truth
+* ref(clang): apply clang reformat
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* ref(single_sensor_simulator): apply changes requested in review
+* Merge pull request `#1061 <https://github.com/tier4/scenario_simulator_v2/issues/1061>`_ from tier4/feature/traffic_simulator/follow-trajectory-action-2
+* fix(rviz): rename to goal planner
+* merge lidar publishing delay
+* fix(traffic_sim): revert clang reformat entity_base
+* Merge remote-tracking branch 'origin/master' into feature/perception_ground_truth
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action-2
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* ref(traffic_simulator,sss): apply clang_reformat
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge pull request `#1018 <https://github.com/tier4/scenario_simulator_v2/issues/1018>`_ from tier4/fix/longitudinal_distance_fixed_master_merged
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Update simulation/traffic_simulator/include/traffic_simulator/helper/helper.hpp
+* Update simulation/traffic_simulator/src/helper/helper.cpp
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action-2
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge pull request `#1046 <https://github.com/tier4/scenario_simulator_v2/issues/1046>`_ from tier4/fix/RJD-554_error_run_scenario_in_row
+* Merge pull request `#1048 <https://github.com/tier4/scenario_simulator_v2/issues/1048>`_ from tier4/refactor/update_rviz_config
+* Update `API::requestFollowTrajectory` to call ZeroMQ client
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* fix(zeromq): ensure single update ego, optimize UpdateEntityStatus
+* Update `MultiClient::call` to return `Response` as return value
+* revert lidar sensor delay's change
+* Merge pull request `#1022 <https://github.com/tier4/scenario_simulator_v2/issues/1022>`_ from tier4/feature/traffic_simulator/follow-trajectory-action
+* merge master branch
+* ref(traffic_simulator): improve despawnEntities
+* Merge remote-tracking branch 'origin/master' into fix/RJD-554_error_run_scenario_in_row
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* fix(traffic_simulator): revert assigning name to entity status
+* ref(zeromq): restore repeated UpdateEntityStatus
+* Merge pull request `#1054 <https://github.com/tier4/scenario_simulator_v2/issues/1054>`_ from tier4/remerge-1023
+* Fix spelling
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Update simulation/traffic_simulator/config/scenario_simulator_v2.rviz
+* apply distance filter for lidar_detected_entity
+* Move file `data_type/follow_trajectory.[ch]pp` into directory `behavior`
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Revert "Revert "Merge pull request `#1023 <https://github.com/tier4/scenario_simulator_v2/issues/1023>`_ from tier4/feat/pointcloud_delay""
+* Rename `trajectory_parameter` to `polyline_trajectory`
+* Rename `FollowPolylineTrajectoryParameter` to `PolylineTrajectory`
+* Add new message type `traffic_simulator_msgs::msg::PolylineTrajectory`
+* Update `follow_trajectory::Parameter::base_time` to not to be `optional`
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Apply clang format
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* update rviz config
+* feat(openscenario_interpreter): add despawnEntities
+* Add new message type `traffic_simulator_msgs::msg::Polyline`
+* Add new message type `traffic_simulator_msgs::msg::Vertex`
+* Merge remote-tracking branch 'origin/master' into feat/relative_object_position
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Add missing comment from master
+* Use CanonicalizedEntityStatus in do_nothing_plugin
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_fe8503' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'fix/longitudinal_distance' into fix/longitudinal_distance_fixed_master_merged
+* Revert changes
+* add interpreter for detection sensor range
+* Merge pull request `#992 <https://github.com/tier4/scenario_simulator_v2/issues/992>`_ from tier4/fix/longitudinal_distance_fixed
+* Add expected testcase output
+* Use lambda function in getAllCanonicalizedLaneletPoses() function
+* Add const and &
+* Change comment format. Add additional testcases for checking lanelet canonicalization
+* chore: apply clang-format
+* Move `makeUpdatedStatus` into header `data_type/follow_trajectory.hpp`
+* feat: add enable_ground_truth_delay to DetectionSensorConfiguration
+* Merge branch 'fix/longitudinal_distance_fixed' into fix/longitudinal_distance_fixed_master_merged
+* Remove checking if shortest route is empty
+* Add comments to test. Change variables name for readibility
+* Merge branch 'fix/longitudinal_distance_fixed' into fix/longitudinal_distance_fixed_master_merged
+* Check if lanelet poses is empty
+* Apply review feedback
+* Check if an estimated lanelet pose can be canonicalized sucessfully. Remove hardcoded value
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_6789' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_4284' into fix/longitudinal_distance_fixed_master_merged
+* Fix gelAllCanonicalizedLaneletPoses(). Improve unit tests
+* Refactor gelAllCanonicalizedLaneletPoses(). Add unit tests for verifying canonicalization
+* Apply clang-format linting
+* Save information about alternative canonicalized lanelet pose. Add method to get alternative lanelet pose base on shortest route. Remove non canonicalized lanelet pose from CanonicalizedLaneletPose class.
+* Save information about non canonicalized lanelet pose in CanonicalizedLaneletPose class.
+* getFollowingLanelets() to the end of ret vector instead to the beginning.
+* Add small offset in order to avoid returning nullopt. Pedestrian is able to stop its moving.
+* Revert calculation of longitudinal distance
+* rename function
+* simplify bool EntityManager::isInLanelet
+* manualy reformat
+* use canonicalized
+* remove static_cast
+* use getLanletPose function
+* simplify code
+* manually format
+* change const
+* add comment
+* remove unused toMapPose function
+* remove getBoundingBox()
+* add description
+* claenup unnecessary member function
+* simplify code
+* use +=
+* fix compile error
+* use inline namespace
+* add setrequest
+* use getTwist function
+* reduce line
+* use const &
+* use auto
+* initialize lanelet pose
+* use canonicalized value in random test runner
+* use canonicalized value
+* simplify code
+* check name
+* remove namespace
+* fix compile errors
+* cleanup code
+* fix compile error
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* rename data type
+* apply reformat
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* fix typo
+* rename data type
+* add comments
+* change other entity status type
+* change port data type
+* fix canonicalize logic
+* fix getting next lanelet algorithum
+* passing canonicalized value into plugin
+* fix typo
+* use Canonicalized Values in traffic_simulator
+* enable cast as geometry_msgs::msg::Pose
+* fix compile error
+* add getEntityType function
+* simplify code
+* fix reformat
+* remove verbose
+* use getLaneletPose function
+* use getMapPose function and simplify code
+* use getMapPose function
+* simplify code
+* use getBoundingBox function
+* use geometry lib
+* use getCurrentAccel/Twist function
+* fix compile error
+* use alias
+* use alias
+* use alias
+* simplify reachPosition
+* remove unused code
+* simplifu code
+* update some functions
+* rename functions
+* simplify code
+* Simplify code
+* fix route planning logic
+* Merge remote-tracking branch 'origin' into fix/longitudinal_distance
+* add operators comparison operator for CanonicalizedLaneletPose class
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* replace type
+* fix compile errors in interpretor
+* fix compile errors in traffic_simulator package
+* add namespace
+* fix clang-format
+* fix compile erros in interpretor
+* fix errors in behavior tree
+* fix compile errors in mock scenarios
+* fix compile errors in traffic_simulator
+* fix compile errors in traffic_simulator
+* add API::canonicalize functions
+* add CanonicalizedEntityStatus class
+* remove empty line
+* check the route is empty
+* add lanelet pose data type
+* cleanup waypoint queue when we cancel route
+* Simplify branching
+* Simplify branching
+* fix compile error
+* rename function
+* Changed functions with names that do not convey the intent of implementation
+* rename to route\_
+* remove debug lines
+* rename to canonicalizeLaneletPose function
+* move to helper.hpp
+* use const &
+* remove unused function
+* add setWaypoints function in route planner class
+* remove nodiscard notation
+* change route plannner from shared pointer to variable.
+* add glog to the mock scenario
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* call sortAndUnique function in the getNextLaneletIds function
+* remove compile errors in std::vector<std::int64_t> HdMapUtils::getPreviousLaneletIds function
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* add include
+* Merge remote-tracking branch 'origin/fix/longitudinal_distance' into fix/longitudinal_distance
+* Update simulation/traffic_simulator/include/traffic_simulator/hdmap_utils/hdmap_utils.hpp
+* add util.hpp
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* Update simulation/traffic_simulator/include/traffic_simulator/hdmap_utils/hdmap_utils.hpp
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* Merge remote-tracking branch 'origin/fix/longitudinal_distance' into fix/longitudinal_distance
+* add description for hard coded parameter
+* add comment for hard-coded parameter
+* Update simulation/traffic_simulator/src/entity/entity_manager.cpp
+* Update simulation/traffic_simulator/src/entity/entity_manager.cpp
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* remove setHdMapUtils from derived class
+* Merge remote-tracking branch 'origin/fix/longitudinal_distance' into fix/longitudinal_distance
+* remove typo
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Update simulation/traffic_simulator/src/hdmap_utils/hdmap_utils.cpp
+* remove definition for galactic support
+* update comment for ROS_DISTRO\_* variable
+* fix compile error
+* fix compile error
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* fix reformat
+* Merge remote-tracking branch 'origin' into fix/longitudinal_distance
+* apply reformat
+* update route planner logic in NPC
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Merge branch 'fix/longitudinal_distance' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* remove deprecated function in humble
+* fix get lanelet length ID
+* fix clamp logic
+* fix logic
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* fix get longitudinal distance logic
+* check lanelet pose while requesting assing route
+* enable check lanelet pose while requesting acquire position
+* add clamp lanlet pose step while getting longitudinal distance
+* add to and from pose to candidates
+* fix typo
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* enable clamp while setting status
+* enable clamp lanelet pose while set status function
+* remove debug lines
+* enable passing hd map utils in constructor
+* enable matching with right/left lanelet
+* add getLaneletPoses function
+* add getLeft/RightLaneIds function to the HdMapUtils class
+* Contributors: Dawid Moszyński, Kotaro Yoshimoto, Kyoichi Sugahara, Lukasz Chojnacki, Masaya Kataoka, Tatsuya Yamasaki, kosuke55, kyoichi-sugahara, yamacir-kit
+
+0.7.0 (2023-07-26)
+------------------
+* Merge pull request `#1028 <https://github.com/tier4/scenario_simulator_v2/issues/1028>`_ from tier4/pzyskowski/660/zmq-interface-change-impl
+* Change comment do doxygen style
+* Add const &
+* Add const &
+* Merge pull request `#1032 <https://github.com/tier4/scenario_simulator_v2/issues/1032>`_ from tier4/feature/update-rviz-config
+* Update simulation/traffic_simulator/config/scenario_simulator_v2.rviz
+* Update traffic_simulator rviz config
+* renamed V2ITrafficLightManager to V2ITrafficLightPublisher
+* do nothing plugin fix
+* typo fix
+* typo fix, unnecessary test removed
+* setting rate for v2i marker
+* code cleanup
+* reset rviz configuration
+* moved vehicle simulation to simple sensor simulator
+* setting publshing rate for marker as well
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/zmq-interface-change-impl
+* clang format
+* traffic lights cleanup
+* topic configurable from v2i publishers constructor
+* decoupled marker publishing from v2i publishing
+* v2i manager renamed to publisher
+* conventional traffic lights manager no longer used
+* traffic marker publisher class filled
+* traffic ligth marker publisher added
+* traffic light manager passed to publishers
+* Merge pull request `#998 <https://github.com/tier4/scenario_simulator_v2/issues/998>`_ from RobotecAI/pzyskowski/660/ego-entity-split
+* renamed traffic light manager src file
+* moved timer and publishing related fields to time class
+* renamed traffic manager base filename
+* renamed traffic light manager base
+* introduced configured updater as an intermediate class
+* trafic lights moved to simple sensor simulation in unelegant manner
+* Refactor fillLaneletPose() to pure virtual
+* Remove step_time parameter from EgoEntity constructor
+* Add @note to comment
+* Change throwing message. Remove __FILE_\_, __LINE\_\_
+* traffic lights interface change; test fix
+* Move fillLaneletPose() to EntityBase as virtual method. Implement fillLaneletPose() for EgoEntity
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/zmq-interface-change-impl
+* brought back working version with SSS (break working with AWSIM)
+* Add additional comment slash
+* add todo comment
+* Move funcionality from EntityBase::fillLaneletPose() to EntityManager::fillEgoLaneletPose() because the funcionality is suppose to be use only by EGO entity
+* Remove EgoEntity::getCurrentTwist() which implementation is the same as EntityBase::getCurrentTwist()
+* Fix formatting
+* Change assert() to THROW_SIMULATION_ERROR
+* Change THROW_SEMANTIC_ERROR to THROW_SIMULATION_ERROR
+* Change function name from refillEntityStatusWithLaneletData() to fillLaneletPose()
+* Add todo to comment
+* Code style fix
+* Merge remote-tracking branch 'robo/pzyskowski/660/ego-entity-split' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/ego-entity-split
+* Merge pull request `#906 <https://github.com/tier4/scenario_simulator_v2/issues/906>`_ from tier4/feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'tier4/master' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge branch 'master' into feature/rtc_custom_command_action
+* Merge pull request `#1011 <https://github.com/tier4/scenario_simulator_v2/issues/1011>`_ from tier4/feature/do_nothing_plugin
+* Update `follow_trajectory::Parameter` to hold base time
+* Rename data member `Parameter<>::timing_is_absolute`
+* Merge pull request `#1009 <https://github.com/tier4/scenario_simulator_v2/issues/1009>`_ from tier4/fix/hdmap_utils/get_stop_lines
+* Fix code style divergence
+* Update `EntityBase::requestFollowTrajectory` to throw exception
+* Remove follow clothoid and NURBS trajectory action
+* reintroduced entity publishing
+* working changes
+* fix space line
+* fix space line
+* add getStopLineIdsOnPath function
+* changes to work only with AWSIM
+* moved EES to SSS
+* EES initialized in SSS
+* re refilling lanelet
+* pose and action status overwritten by data received over zmq
+* returning updated status from sim
+* ego status updated before frame update
+* updateing statu sin sim function accepts status
+* split ego and other entities updating
+* single entity status setting
+* update entities before frame update
+* fix(traffic_sim): fix getRouteLanelets as a valid virtual
+* lanelet2 map passing via zmq
+* lanelet refill in EES
+* add doNothing()
+* using hdmap utils from EES
+* using route from EES
+* moved lanelet filling to TS api
+* use passed state instead of internal state to refill lanelet id
+* added hdmaputils to EES
+* Merge remote-tracking branch 'robo/pzyskowski/660/ego-entity-split' into pzyskowski/660/zmq-interface-change
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/zmq-interface-change
+* entity status zmq update
+* delete space
+* getStopLinesOnPath() changed from private to public
+* Update to properly calculate remaining time when timing is relative
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into fix/get_s_value
+* Merge remote-tracking branch 'tier4/master' into pzyskowski/660/ego-entity-split
+* fix(traffic_sim): fix missing Oz ll2 correction  in setAutowareState
+* fix(traffic_sim): add setStatus to ego - fix missing setAutowareStatus
+* feat(traffic_sim): add refill status with ll2 method
+* Merge pull request `#1004 <https://github.com/tier4/scenario_simulator_v2/issues/1004>`_ from tier4/feat/v2i_custom_command_action
+* pedestrian and misc object models passed
+* removed uncalled status updates to EES
+* model3d sent via zmq
+* added unique key, pose and initial speed to the spawn vehicle
+* refactor(traffic_simulator, openscenario_interpreter): unify usage timing of plural forms
+* refactor(traffic_simulator, openscenario_interpreter): use reset instead of apply
+* refactor(traffic_simulator, openscenario_interpreter): rename some variable & function name
+* refactor(traffic_simulator): reduce the scope of the variable
+* refactor(traffic_simulator): reduce the scope of the variable
+* refactor(traffic_simulator): rename TrafficLightManagerBase::start into createTimer
+* chore(traffic_simulator): delete unused codes
+* refactor(traffic_simulator): optimize includes of v2i_traffic_light_manager.cpp
+* refactor(traffic_simulator): optimize includes of conventional_traffic_light_manager.hpp
+* refactor(traffic_simulator): optimize includes of v2i_traffic_light_manager.hpp
+* refactor(traffic_simulator): append const to member variable of TrafficLightManagerBase
+* removed updated entity entirely
+* utilizing updated entity data
+* map to keep entity status in sss; zmq entity update takes one entity at a time
+* chore: apply linter
+* chore: apply linter
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* merged UpdateSensorFrame into UpdateFrameRequest
+* refactor
+* chore: delete unused code
+* chore: fix include guard
+* Merge branch 'pzyskowski/660/ego-entity-split' into pzyskowski/660/zmq-interface-change
+* feat: implement update publish rate for V2ITrafficSignalState
+* Merge remote-tracking branch 'origin/master' into feat/v2i_custom_command_action
+* feat(traffic_simulator): add TrafficLightManagerBase::start
+* feat(traffic_simulator): implement update publish rate function for traffic lights
+* refactor(traffic_simulator): forward getTrafficLights function to each type of traffic lights
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'origin/master' into feature/interpreter/fault-injection
+* refactor(traffic_simulator): forward getTrafficLights function to each type of traffic lights
+* refactor(traffic_simulator): rename getTrafficRelation to getTrafficLights
+* Merge remote-tracking branch 'origin/master' into fix/get_s_value
+* Merge pull request `#969 <https://github.com/tier4/scenario_simulator_v2/issues/969>`_ from RobotecAI/pzyskowski/660/concealer-split
+* feat(traffic_simulator): add empty implementation of V2ITrafficSignalStateAction
+* refactor(traffic_simulator): implement switching of traffic light managers
+* chore: update traffic light manager tests
+* feat(traffic_simulator): add V2ITrafficLightManager
+* refactor(traffic_simulator): devide traffic light manager into 2 files
+* Update `behavior_plugin` to receive Parameter via `shared_ptr`
+* starting speed simplified
+* initial speed fix
+* initialize changed
+* clang format
+* spell fix
+* spelling, style fixes
+* clang format
+* onUpdate changed to update in EES
+* npc logic started logic fix
+* spawn cleanup, despawn fix
+* simplified ego status setting
+* moved ego simulation to api
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* moved EES outside traffic_simulator namespace
+* clang format
+* npc_logic_started not taken into accoung in EES
+* Revert "in progress"
+* Merge branch 'pzyskowski/660/concealer-split' into pzyskowski/660/ego-entity-split
+* clang format
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* using existing AutwoareUnvierse class template for FOAFor template
+* clang format
+* made concealer namespace unnecesary in FOA template parameter
+* clang format
+* renamed files after AutowareUser class change name
+* applied AutowareUser name change to FOA
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* in progress
+* extracted EES from EE
+* missing rethrow
+* get twist and pose without EES in EE
+* using external status setting
+* externaly set status
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge branch 'pzyskowski/660/concealer-split' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* localization and vehicle state topics published on dedicated therad
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* setInitialState introduced
+* add lanelet pose to entity status
+* extracted setStateInternal
+* EES setStatus uses internal state
+* moved EES update to begining of EE update
+* update previous and publish autoware moved
+* made more fields private
+* currentTwist taken from EES state
+* using pose from EES in getCurrentPose
+* moved status update to EES
+* using state inside EES
+* entity status in EES
+* removed internal state from EES (ego entity simulation)
+* made the status generation time equal to curren sim time
+* privatized some of the ego entity simulation
+* moved previous values and autoware update
+* jerk taken from ego entity sim
+* part of onUpdate moved to ego entity simulation
+* removed spin at the end of an update, moved spin after entity base update
+* getCurrentTwist used from ego_entity_simulation
+* using getCurrentAccel from ego entity simulation
+* setAutowareState from ego entity simulation
+* getCurrentPose used from ego_entity_simulation
+* requestSpeedChange used from EgoEntitySimulation
+* fields from within ego entity simulation
+* made it work
+* ego entity simulation class
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* added small comments
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* clang format
+* removed update function from user side of concelear
+* setVelocityRepor, setOdometry, current_pose and current_velocity moved
+* setGearSign, getsetGearCommand, getVehicleCommand separated
+* acceleration, steering report and velocity moved
+* removed timer for autoware update
+* extracted getAcceleration
+* renamde AutowareUniverse to AutowareUniverseUser
+* renamed Autoware to AutowareUser
+* renamed autoware to autoware_user
+* concealer in main thread
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Cleanup
+* Update `FollowPolylineTrajectoryAction` to receive parameter
+* Add accessors for `Follow*TrajectoryAction` to `BehaviorPluginBase`
+* Fix typo
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Update enumeration `traffic_simulator::behavior::Request`
+* Add new behavior request `Request::FOLLOW_TRAJECTORY`
+* Add new API `requestFollowTrajectory`
+* Add new struct `follow_trajectory::Parameter` for behavior plugin
+* Contributors: Dawid Moszynski, Dawid Moszyński, Kosuke Takeuchi, Kotaro Yoshimoto, Lukasz Chojnacki, Masaya Kataoka, Piotr Zyskowski, Tatsuya Yamasaki, hrjp, kosuke55, yamacir-kit
+
 0.6.8 (2023-05-09)
 ------------------
 * Merge pull request `#979 <https://github.com/tier4/scenario_simulator_v2/issues/979>`_ from RobotecAI/ref/AJD-696_clean_up_metics_traffic_sim

@@ -14,21 +14,20 @@
 //
 // Co-developed by TIER IV, Inc. and Robotec.AI sp. z o.o.
 
-#include "random_test_runner/random_test_runner.hpp"
+#include <spdlog/fmt/fmt.h>
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include <boost/optional/optional_io.hpp>
 #include <memory>
+#include <random_test_runner/file_interactions/yaml_test_params_saver.hpp>
+#include <random_test_runner/lanelet_utils.hpp>
+#include <random_test_runner/random_test_runner.hpp>
+#include <random_test_runner/test_randomizer.hpp>
+#include <rclcpp/logger.hpp>
 #include <string>
+#include <traffic_simulator/api/configuration.hpp>
+#include <traffic_simulator_msgs/msg/behavior_parameter.hpp>
 #include <vector>
-
-#include "random_test_runner/file_interactions/yaml_test_params_saver.hpp"
-#include "random_test_runner/lanelet_utils.hpp"
-#include "random_test_runner/test_randomizer.hpp"
-#include "rclcpp/logger.hpp"
-#include "spdlog/fmt/fmt.h"
-#include "traffic_simulator/api/configuration.hpp"
-#include "traffic_simulator_msgs/msg/behavior_parameter.hpp"
 
 RandomTestRunner::RandomTestRunner(const rclcpp::NodeOptions & option)
 : Node("random_test_runner", option), error_reporter_(get_logger())
@@ -66,7 +65,6 @@ RandomTestRunner::RandomTestRunner(const rclcpp::NodeOptions & option)
 
   traffic_simulator::Configuration configuration(map_path);
   configuration.simulator_host = test_control_parameters.simulator_host;
-  api_ = std::make_shared<traffic_simulator::API>(this, configuration);
   auto lanelet_utils = std::make_shared<LaneletUtils>(configuration.lanelet2_map_path());
 
   TestSuiteParameters validated_params = validateParameters(test_suite_params, lanelet_utils);
@@ -90,7 +88,7 @@ RandomTestRunner::RandomTestRunner(const rclcpp::NodeOptions & option)
       fmt::format("Generating test {}/{}", test_id + 1, test_case_parameters_vector.size());
     RCLCPP_INFO_STREAM(get_logger(), message);
     test_executors_.emplace_back(
-      api_,
+      std::make_shared<traffic_simulator::API>(this, configuration, 1.0, 20),
       TestRandomizer(
         get_logger(), validated_params, test_case_parameters_vector[test_id], lanelet_utils)
         .generate(),
@@ -198,15 +196,8 @@ void RandomTestRunner::update()
     RCLCPP_INFO_STREAM(get_logger(), message);
     current_test_executor_->initialize();
   }
-  if (!api_->isEgoSpawned() && !api_->isNpcLogicStarted()) {
-    api_->startNpcLogic();
-  }
-  if (
-    api_->isEgoSpawned() && !api_->isNpcLogicStarted() &&
-    api_->asFieldOperatorApplication(api_->getEgoName()).engageable()) {
-    api_->startNpcLogic();
-  }
-  current_test_executor_->update(api_->getCurrentTime());
+
+  current_test_executor_->update();
 }
 
 void RandomTestRunner::start()

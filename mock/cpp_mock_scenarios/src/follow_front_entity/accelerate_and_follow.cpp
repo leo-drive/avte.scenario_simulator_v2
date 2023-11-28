@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+namespace cpp_mock_scenarios
+{
 class AccelerateAndFollowScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
@@ -43,8 +45,9 @@ private:
   {
     double ego_accel = api_.getCurrentAccel("ego").linear.x;
     double ego_twist = api_.getCurrentTwist("ego").linear.x;
-    // double npc_accel = api_.getEntityStatus("npc").action_status.accel.linear.x;
-    double npc_twist = api_.getEntityStatus("npc").action_status.twist.linear.x;
+    // double npc_accel = static_cast<EntityStatus>(api_.getEntityStatus("npc")).action_status.accel.linear.x;
+    double npc_twist = api_.getCurrentTwist("npc").linear.x;
+    ;
     // LCOV_EXCL_START
     if (npc_twist > (ego_twist + 1) && ego_accel < 0) {
       stop(cpp_mock_scenarios::Result::FAILURE);
@@ -60,21 +63,24 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34741, 0, 0), getVehicleParameters());
+      "ego", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 0, 0)),
+      getVehicleParameters());
     api_.setLinearVelocity("ego", 3);
 
     api_.spawn(
-      "npc", traffic_simulator::helper::constructLaneletPose(34741, 10, 0), getVehicleParameters());
+      "npc", api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34741, 10, 0)),
+      getVehicleParameters());
     api_.setLinearVelocity("npc", 10);
     api_.requestSpeedChange("npc", 10, true);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<AccelerateAndFollowScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::AccelerateAndFollowScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

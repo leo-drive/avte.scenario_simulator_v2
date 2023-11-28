@@ -166,22 +166,6 @@ void toMsg(const traffic_simulator_msgs::Axles & proto, traffic_simulator_msgs::
   toMsg(proto.rear_axle(), axles.rear_axle);
 }
 
-/*
-void toProto(
-  const traffic_simulator_msgs::msg::Property & p,
-  traffic_simulator_msgs::Property & proto)
-{
-  // proto.set_is_ego(p.is_ego);
-}
-
-void toMsg(
-  const traffic_simulator_msgs::Property & proto,
-  traffic_simulator_msgs::msg::Property & p)
-{
-  // p.is_ego = proto.is_ego();
-}
-*/
-
 void toProto(
   const traffic_simulator_msgs::msg::VehicleParameters & p,
   traffic_simulator_msgs::VehicleParameters & proto)
@@ -189,7 +173,6 @@ void toProto(
   toProto(p.bounding_box, *proto.mutable_bounding_box());
   toProto(p.axles, *proto.mutable_axles());
   toProto(p.performance, *proto.mutable_performance());
-  // toProto(p.property, *proto.mutable_property());
   proto.set_name(p.name);
 }
 
@@ -200,7 +183,6 @@ void toMsg(
   toMsg(proto.axles(), p.axles);
   toMsg(proto.bounding_box(), p.bounding_box);
   toMsg(proto.performance(), p.performance);
-  // toMsg(proto.property(), p.property);
   p.name = proto.name();
 }
 
@@ -434,6 +416,33 @@ void toMsg(
 }
 
 void toProto(
+  const traffic_simulator_msgs::msg::EntityStatus & status,
+  simulation_api_schema::EntityStatus & proto)
+{
+  toProto(status.type, *proto.mutable_type());
+  toProto(status.subtype, *proto.mutable_subtype());
+  proto.set_time(status.time);
+  proto.set_name(status.name);
+  toProto(status.action_status, *proto.mutable_action_status());
+  toProto(status.pose, *proto.mutable_pose());
+}
+
+void toMsg(
+  const simulation_api_schema::EntityStatus & proto,
+  traffic_simulator_msgs::msg::EntityStatus & status)
+{
+  toMsg(proto.type(), status.type);
+  toMsg(proto.subtype(), status.subtype);
+  status.time = proto.time();
+  status.name = proto.name();
+  toMsg(proto.action_status(), status.action_status);
+  toMsg(proto.pose(), status.pose);
+  status.bounding_box = traffic_simulator_msgs::msg::BoundingBox();
+  status.lanelet_pose = traffic_simulator_msgs::msg::LaneletPose();
+  status.lanelet_pose_valid = false;
+}
+
+void toProto(
   const builtin_interfaces::msg::Duration & duration, builtin_interfaces::Duration & proto)
 {
   proto.set_sec(duration.sec);
@@ -594,93 +603,65 @@ auto toProto(
   toProto(std::get<1>(message), *proto.mutable_gear_command());
 }
 
-void toProto(
-  const autoware_auto_perception_msgs::msg::TrafficSignal & traffic_light_state,
-  simulation_api_schema::TrafficLightState & proto)
+auto toProtobufMessage(const traffic_simulator_msgs::msg::Vertex & message)
+  -> traffic_simulator_msgs::Vertex
 {
-  auto has_convertible_color = [](auto && traffic_light) {
-    switch (traffic_light.color) {
-      case autoware_auto_perception_msgs::msg::TrafficLight::RED:
-      case autoware_auto_perception_msgs::msg::TrafficLight::AMBER:
-      case autoware_auto_perception_msgs::msg::TrafficLight::GREEN:
-        return true;
-      default:
-        return false;
-    }
-  };
+  auto proto = traffic_simulator_msgs::Vertex();
+  proto.set_time(message.time);
+  toProto(message.position, *proto.mutable_position());
+  return proto;
+}
 
-  auto convert_color = [](auto color) {
-    switch (color) {
-      case autoware_auto_perception_msgs::msg::TrafficLight::RED:
-        return simulation_api_schema::TrafficLightState::LampState::RED;
-      case autoware_auto_perception_msgs::msg::TrafficLight::AMBER:
-        return simulation_api_schema::TrafficLightState::LampState::YELLOW;
-      case autoware_auto_perception_msgs::msg::TrafficLight::GREEN:
-        return simulation_api_schema::TrafficLightState::LampState::GREEN;
-      default:
-        return simulation_api_schema::TrafficLightState::LampState::UNKNOWN;
-    }
-  };
+auto toROS2Message(const traffic_simulator_msgs::Vertex & proto)
+  -> traffic_simulator_msgs::msg::Vertex
+{
+  auto message = traffic_simulator_msgs::msg::Vertex();
+  message.time = proto.time();
+  toMsg(proto.position(), message.position);
+  return message;
+}
 
-  auto has_convertible_shape = [](auto && traffic_light) {
-    switch (traffic_light.shape) {
-      case autoware_auto_perception_msgs::msg::TrafficLight::LEFT_ARROW:
-      case autoware_auto_perception_msgs::msg::TrafficLight::RIGHT_ARROW:
-      case autoware_auto_perception_msgs::msg::TrafficLight::UP_ARROW:
-      case autoware_auto_perception_msgs::msg::TrafficLight::DOWN_ARROW:
-        return true;
-      default:
-        return false;
-    }
-  };
-
-  auto convert_shape = [](auto shape) {
-    switch (shape) {
-      case autoware_auto_perception_msgs::msg::TrafficLight::LEFT_ARROW:
-        return simulation_api_schema::TrafficLightState::LampState::LEFT;
-      case autoware_auto_perception_msgs::msg::TrafficLight::RIGHT_ARROW:
-        return simulation_api_schema::TrafficLightState::LampState::RIGHT;
-      case autoware_auto_perception_msgs::msg::TrafficLight::UP_ARROW:
-        return simulation_api_schema::TrafficLightState::LampState::UP;
-      case autoware_auto_perception_msgs::msg::TrafficLight::DOWN_ARROW:
-        return simulation_api_schema::TrafficLightState::LampState::DOWN;
-      default:
-        return simulation_api_schema::TrafficLightState::LampState::UNKNOWN;
-    }
-  };
-
-  auto has_convertible_status = [](auto && traffic_light) {
-    switch (traffic_light.status) {
-      case autoware_auto_perception_msgs::msg::TrafficLight::UNKNOWN:
-        return true;
-      default:
-        return false;
-    }
-  };
-
-  proto.set_id(traffic_light_state.map_primitive_id);
-
-  for (const auto & traffic_light : traffic_light_state.lights) {
-    if (traffic_light.color and has_convertible_color(traffic_light)) {
-      simulation_api_schema::TrafficLightState::LampState lamp_state;
-      lamp_state.set_confidence(traffic_light.confidence);
-      lamp_state.set_type(convert_color(traffic_light.color));
-      *proto.add_lamp_states() = lamp_state;
-    }
-
-    if (traffic_light.shape and has_convertible_shape(traffic_light)) {
-      simulation_api_schema::TrafficLightState::LampState lamp_state;
-      lamp_state.set_confidence(traffic_light.confidence);
-      lamp_state.set_type(convert_shape(traffic_light.shape));
-      *proto.add_lamp_states() = lamp_state;
-    }
-
-    if (traffic_light.status and has_convertible_status(traffic_light)) {
-      simulation_api_schema::TrafficLightState::LampState lamp_state;
-      lamp_state.set_confidence(traffic_light.confidence);
-      lamp_state.set_type(simulation_api_schema::TrafficLightState::LampState::UNKNOWN);
-      *proto.add_lamp_states() = lamp_state;
-    }
+auto toProtobufMessage(const traffic_simulator_msgs::msg::Polyline & message)
+  -> traffic_simulator_msgs::Polyline
+{
+  auto proto = traffic_simulator_msgs::Polyline();
+  for (const auto & vertex : message.vertices) {
+    *proto.add_vertices() = toProtobufMessage(vertex);
   }
+  return proto;
+}
+
+auto toROS2Message(const traffic_simulator_msgs::Polyline & proto)
+  -> traffic_simulator_msgs::msg::Polyline
+{
+  auto message = traffic_simulator_msgs::msg::Polyline();
+  for (const auto & vertex : proto.vertices()) {
+    message.vertices.push_back(toROS2Message(vertex));
+  }
+  return message;
+}
+
+auto toProtobufMessage(const traffic_simulator_msgs::msg::PolylineTrajectory & message)
+  -> traffic_simulator_msgs::PolylineTrajectory
+{
+  auto proto = traffic_simulator_msgs::PolylineTrajectory();
+  proto.set_initial_distance_offset(message.initial_distance_offset);
+  proto.set_dynamic_constraints_ignorable(message.dynamic_constraints_ignorable);
+  proto.set_base_time(message.base_time);
+  proto.set_closed(message.closed);
+  *proto.mutable_shape() = toProtobufMessage(message.shape);
+  return proto;
+}
+
+auto toROS2Message(const traffic_simulator_msgs::PolylineTrajectory & proto)
+  -> traffic_simulator_msgs::msg::PolylineTrajectory
+{
+  auto message = traffic_simulator_msgs::msg::PolylineTrajectory();
+  message.initial_distance_offset = proto.initial_distance_offset();
+  message.dynamic_constraints_ignorable = proto.dynamic_constraints_ignorable();
+  message.base_time = proto.base_time();
+  message.closed = proto.closed();
+  message.shape = toROS2Message(proto.shape());
+  return message;
 }
 }  // namespace simulation_interface

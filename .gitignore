@@ -6,13 +6,13 @@
 
 # log file
 *.log
+log
 
 # files too large
 *.pcd
 
 # external packages
 external/*
-!external/lanelet2_matching
 !external/concealer
 
 # auto-generated files
@@ -21,3 +21,4 @@ latex
 scenario_simulator.tar
 site
 *.pyc
+build

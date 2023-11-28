@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+namespace cpp_mock_scenarios
+{
 class GetDistanceToLaneBoundScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
@@ -55,18 +57,20 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34513, 5, 0, 0, 0, 0),
+      "ego",
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34513, 5, 0, 0, 0, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("ego", 10);
     api_.requestSpeedChange("ego", 3, true);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<GetDistanceToLaneBoundScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::GetDistanceToLaneBoundScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

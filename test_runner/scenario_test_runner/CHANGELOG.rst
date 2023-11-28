@@ -2,6 +2,154 @@
 Changelog for package scenario_test_runner
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.8.0 (2023-09-05)
+------------------
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge remote-tracking branch 'origin/master' into fix/clock
+* Merge pull request `#1024 <https://github.com/tier4/scenario_simulator_v2/issues/1024>`_ from tier4/feature/perception_ground_truth
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* docs: add Property.detectedObjectGroundTruthPublishingDelay.yaml
+* Merge remote-tracking branch 'origin/master' into feature/perception_ground_truth
+* Merge remote-tracking branch 'origin/master' into fix/clock
+* Merge pull request `#1056 <https://github.com/tier4/scenario_simulator_v2/issues/1056>`_ from tier4/feature/interpreter/sensor-detection-range
+* merge lidar publishing delay
+* Merge remote-tracking branch 'origin/master' into feature/perception_ground_truth
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action-2
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge pull request `#1018 <https://github.com/tier4/scenario_simulator_v2/issues/1018>`_ from tier4/fix/longitudinal_distance_fixed_master_merged
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Merge pull request `#1030 <https://github.com/tier4/scenario_simulator_v2/issues/1030>`_ from tier4/feat/relative_object_position
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action-2
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge pull request `#1031 <https://github.com/tier4/scenario_simulator_v2/issues/1031>`_ from tier4/feature/RJD-96_remove_verify_expected_result
+* update scenario files
+* revert lidar sensor delay's change
+* merge master branch
+* export scenario file from scenario editor
+* update scenario file
+* Merge remote-tracking branch 'origin/master' into fix/RJD-554_error_run_scenario_in_row
+* Merge remote-tracking branch 'origin/master' into ref/RJD-553_restore_repeated_update_entity_status
+* Merge pull request `#1054 <https://github.com/tier4/scenario_simulator_v2/issues/1054>`_ from tier4/remerge-1023
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Update y in test scenario
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Revert "Revert "Merge pull request `#1023 <https://github.com/tier4/scenario_simulator_v2/issues/1023>`_ from tier4/feat/pointcloud_delay""
+* Merge branch 'master' into feature/interpreter/sensor-detection-range
+* fix cspell:disable
+* Add reason for cspell disable
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Add cspell:disable-line in yaml
+* Merge remote-tracking branch 'origin/master' into feat/relative_object_position
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* fix(workflow): remove failure.yaml scenarios
+* Add test scenario
+* feat(test_runner): remove expect in yamls
+* feat(test_runner, openscenario_preprocessor): remove expect
+* feat(openscenario_interpreter): remove intended_result
+* Increase ReachPositionCondition tolerance distance
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_fe8503' into fix/longitudinal_distance_fixed_master_merged
+* add interpreter for detection sensor range
+* Merge branch 'master' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_6789' into fix/longitudinal_distance_fixed_master_merged
+* Merge branch 'master_4284' into fix/longitudinal_distance_fixed_master_merged
+* fix result checker script
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* fix some files
+* Merge remote-tracking branch 'origin' into fix/longitudinal_distance
+* apply reformat
+* Merge remote-tracking branch 'origin/master' into fix/longitudinal_distance
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Merge https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Merge https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Merge branch 'master' of https://github.com/tier4/scenario_simulator_v2 into fix/longitudinal_distance
+* Contributors: Dawid Moszyński, Kotaro Yoshimoto, Lukasz Chojnacki, Masaya Kataoka, Tatsuya Yamasaki, kosuke55, kyoichi-sugahara, yamacir-kit
+
+0.7.0 (2023-07-26)
+------------------
+* Merge pull request `#1028 <https://github.com/tier4/scenario_simulator_v2/issues/1028>`_ from tier4/pzyskowski/660/zmq-interface-change-impl
+* fix(simple_sensor_simulator): provide vehicle parameters
+* unified scneario test runner launch (added a way to not to launch simple_sensor simulator
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/zmq-interface-change-impl
+* brought back working version with SSS (break working with AWSIM)
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/ego-entity-split
+* Merge pull request `#906 <https://github.com/tier4/scenario_simulator_v2/issues/906>`_ from tier4/feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge pull request `#1013 <https://github.com/tier4/scenario_simulator_v2/issues/1013>`_ from tier4/feature/rtc_custom_command_action
+* fix: modify CustomCommandAction.RequestToCooperateCommandAction@v1.yaml
+* Update accomplished to return false if it is the first call after start
+* refactor:
+* chore: add a scenario to test RequestToCooperateCommandAction@v1
+* Remove follow clothoid and NURBS trajectory action
+* Add some test scenarios
+* Add scenario `FollowTrajectoryAction-star.yaml` to workflow_example
+* Lipsticks
+* Add scenario `FollowTrajectoryAction-straight.yaml` to workflow_example
+* Update `FollowTrajectoryAction::accomplished` to work correctly
+* Relax the condition for determining delay for the specified arrival time
+* Revert "rerun autoware from launch"
+* rerun autoware from launch
+* working changes
+* Improve time remaining calculation and speed planning
+* Add some notes
+* scenario test raunner awsim launch
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/rtc_custom_command_action
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/zmq-interface-change
+* Merge remote-tracking branch 'origin/master' into fix/get_s_value
+* Merge pull request `#1007 <https://github.com/tier4/scenario_simulator_v2/issues/1007>`_ from tier4/documentation/interpreter/detected-object
+* Fix typo
+* Add new example `Property.detectedObjectMissingProbalibity.yaml`
+* Add new example `Property.detectedObjectPositionStandardDeviation.yaml`
+* Add new example `Property.detectedObjectPublishingDelay.yaml`
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into fix/get_s_value
+* Merge remote-tracking branch 'tier4/master' into pzyskowski/660/ego-entity-split
+* Merge pull request `#1004 <https://github.com/tier4/scenario_simulator_v2/issues/1004>`_ from tier4/feat/v2i_custom_command_action
+* Merge remote-tracking branch 'origin/master' into feat/v2i_custom_command_action
+* Merge pull request `#1002 <https://github.com/tier4/scenario_simulator_v2/issues/1002>`_ from tier4/feature/interpreter/fault-injection
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge branch 'pzyskowski/660/ego-entity-split' into pzyskowski/660/zmq-interface-change
+* feat(scenario_test_runner): add test scenario of V2ITrafficSignalState
+* Fix sample scenario to not to set initial speed to ego entity
+* Merge remote-tracking branch 'origin/master' into feat/v2i_custom_command_action
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'origin/master' into feature/interpreter/fault-injection
+* Merge remote-tracking branch 'origin/master' into fix/get_s_value
+* Merge branch 'pzyskowski/660/concealer-split' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge branch 'pzyskowski/660/concealer-split' into pzyskowski/660/ego-entity-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'tier/master' into pzyskowski/660/concealer-split
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Update FollowPolylineTrajectoryAction to respect time limits, albeit imperfectly
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Update test scenario `RoutingAction.FollowTrajectoryAction` to Autoware independent
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Update `FollowPolylineTrajectoryAction` to work if `time` unspecified
+* Merge remote-tracking branch 'origin/master' into feature/traffic_simulator/follow-trajectory-action
+* Contributors: Dawid Moszyński, Kotaro Yoshimoto, Masaya Kataoka, Piotr Zyskowski, Tatsuya Yamasaki, yamacir-kit
+
 0.6.8 (2023-05-09)
 ------------------
 * Merge remote-tracking branch 'origin/master' into ref/AJD-696_clean_up_metics_traffic_sim

@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+namespace cpp_mock_scenarios
+{
 class LaneChangeLeftScenario : public cpp_mock_scenarios::CppScenarioNode
 {
 public:
@@ -53,19 +55,21 @@ private:
   void onInitialize() override
   {
     api_.spawn(
-      "ego", traffic_simulator::helper::constructLaneletPose(34462, 10, 0, 0, 0, 0),
+      "ego",
+      api_.canonicalize(traffic_simulator::helper::constructLaneletPose(34462, 10, 0, 0, 0, 0)),
       getVehicleParameters());
     api_.setLinearVelocity("ego", 10);
     api_.requestSpeedChange("ego", 10, true);
     api_.requestLaneChange("ego", traffic_simulator::lane_change::Direction::LEFT);
   }
 };
+}  // namespace cpp_mock_scenarios
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  auto component = std::make_shared<LaneChangeLeftScenario>(options);
+  auto component = std::make_shared<cpp_mock_scenarios::LaneChangeLeftScenario>(options);
   rclcpp::spin(component);
   rclcpp::shutdown();
   return 0;

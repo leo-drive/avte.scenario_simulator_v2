@@ -337,8 +337,47 @@ TEST(Conversion, EntityStatus)
   EXPECT_ENTITY_STATUS_EQ(status, proto);
   status = traffic_simulator_msgs::msg::EntityStatus();
   EXPECT_TRUE(status.lanelet_pose_valid);
+  EXPECT_FALSE(proto.lanelet_pose_valid());
   simulation_interface::toMsg(proto, status);
   EXPECT_ENTITY_STATUS_EQ(status, proto);
+  EXPECT_FALSE(status.lanelet_pose_valid);
+}
+
+TEST(Conversion, SentEntityStatus)
+{
+  simulation_api_schema::EntityStatus proto;
+  traffic_simulator_msgs::msg::EntityStatus status;
+  status.name = "test";
+  status.time = 3.0;
+  traffic_simulator_msgs::msg::ActionStatus action;
+  action.current_action = "test";
+  action.twist.linear.x = 1.0;
+  action.twist.linear.y = 2.0;
+  action.twist.linear.z = 3.0;
+  action.twist.angular.x = -20;
+  action.twist.angular.y = -4.2;
+  action.twist.angular.z = 9;
+  action.accel.linear.x = 3.0;
+  action.accel.linear.y = 908;
+  action.accel.linear.z = 987.0;
+  action.accel.angular.x = 0.3;
+  action.accel.angular.y = 0.5;
+  action.accel.angular.z = 98;
+  status.action_status = action;
+  geometry_msgs::msg::Pose pose;
+  pose.position.x = 4.0;
+  pose.position.y = 1.2;
+  pose.position.z = 5.1;
+  pose.orientation.x = 0.3;
+  pose.orientation.y = 8.3;
+  pose.orientation.z = 9.3;
+  pose.orientation.w = 10.2;
+  status.pose = pose;
+  simulation_interface::toProto(status, proto);
+  EXPECT_SENT_ENTITY_STATUS_EQ(status, proto);
+  status = traffic_simulator_msgs::msg::EntityStatus();
+  simulation_interface::toMsg(proto, status);
+  EXPECT_SENT_ENTITY_STATUS_EQ(status, proto);
 }
 
 TEST(Conversion, Time)
@@ -486,65 +525,6 @@ TEST(Conversion, LaneletPose)
   pose = traffic_simulator_msgs::msg::LaneletPose();
   EXPECT_NO_THROW(simulation_interface::toMsg(proto, pose));
   EXPECT_LANELET_POSE_EQ(pose, proto);
-}
-
-TEST(Conversion, TrafficSignal)
-{
-  auto color = [](auto value) {
-    autoware_auto_perception_msgs::msg::TrafficLight traffic_light;
-    traffic_light.color = value;
-    EXPECT_EQ(traffic_light.color, value);
-    EXPECT_EQ(traffic_light.shape, 0);
-    EXPECT_EQ(traffic_light.status, 0);
-    return traffic_light;
-  };
-
-  auto shape = [](auto value) {
-    autoware_auto_perception_msgs::msg::TrafficLight traffic_light;
-    traffic_light.shape = value;
-    EXPECT_EQ(traffic_light.color, 0);
-    EXPECT_EQ(traffic_light.shape, value);
-    EXPECT_EQ(traffic_light.status, 0);
-    return traffic_light;
-  };
-
-  auto status = [](auto value) {
-    autoware_auto_perception_msgs::msg::TrafficLight traffic_light;
-    traffic_light.status = value;
-    EXPECT_EQ(traffic_light.color, 0);
-    EXPECT_EQ(traffic_light.shape, 0);
-    EXPECT_EQ(traffic_light.status, value);
-    return traffic_light;
-  };
-
-  autoware_auto_perception_msgs::msg::TrafficSignal message;
-  message.map_primitive_id = 123;
-  message.lights = {
-    status(autoware_auto_perception_msgs::msg::TrafficLight::UNKNOWN),
-    color(autoware_auto_perception_msgs::msg::TrafficLight::RED),
-    color(autoware_auto_perception_msgs::msg::TrafficLight::GREEN),
-    color(autoware_auto_perception_msgs::msg::TrafficLight::AMBER),
-    shape(autoware_auto_perception_msgs::msg::TrafficLight::LEFT_ARROW),
-    shape(autoware_auto_perception_msgs::msg::TrafficLight::RIGHT_ARROW),
-    shape(autoware_auto_perception_msgs::msg::TrafficLight::UP_ARROW),
-    shape(autoware_auto_perception_msgs::msg::TrafficLight::DOWN_ARROW),
-  };
-
-  simulation_api_schema::TrafficLightState proto;
-
-  using LampState = simulation_api_schema::TrafficLightState::LampState;
-
-  EXPECT_NO_THROW(simulation_interface::toProto(message, proto));
-  EXPECT_EQ(proto.id(), 123);
-  EXPECT_NE(proto.lamp_states()[0].confidence(), 1.0);
-  EXPECT_EQ(proto.lamp_states()[0].type(), LampState::UNKNOWN);
-  EXPECT_EQ(proto.lamp_states()[1].type(), LampState::RED);
-  EXPECT_EQ(proto.lamp_states()[2].type(), LampState::GREEN);
-  EXPECT_EQ(proto.lamp_states()[3].type(), LampState::YELLOW);
-  EXPECT_EQ(proto.lamp_states()[4].type(), LampState::LEFT);
-  EXPECT_EQ(proto.lamp_states()[5].type(), LampState::RIGHT);
-  EXPECT_EQ(proto.lamp_states()[6].type(), LampState::UP);
-  EXPECT_EQ(proto.lamp_states()[7].type(), LampState::DOWN);
 }
 
 int main(int argc, char ** argv)
